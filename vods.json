@@ -1,17 +1,22 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-06T09:09:52Z",
+  "updated_at": "2026-10-06T16:08:46Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2892660881",
-    "title": "NXT | Y-13 Vaglefjes | !discord !server !hjul",
-    "url": "https://www.twitch.tv/videos/2892660881",
-    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-320x180.jpg",
-    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-640x360.jpg",
-    "duration_seconds": 11850,
-    "created_at": "2026-10-05T16:20:48Z"
+    "id": "2893494494",
+    "title": "NXT | Y-13 Væglee | !discord !server !hjul",
+    "url": "https://www.twitch.tv/videos/2893494494",
+    "duration_seconds": 0,
+    "created_at": "2026-10-06T15:59:13Z"
   },
   "vods": [
+    {
+      "id": "2893494494",
+      "title": "NXT | Y-13 Væglee | !discord !server !hjul",
+      "url": "https://www.twitch.tv/videos/2893494494",
+      "duration_seconds": 0,
+      "created_at": "2026-10-06T15:59:13Z"
+    },
     {
       "id": "2892660881",
       "title": "NXT | Y-13 Vaglefjes | !discord !server !hjul",
@@ -56,15 +61,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a631b6abb79e0eba8004_andersmish_316933848662_1790265482//thumb/thumb0-640x360.jpg",
       "duration_seconds": 8050,
       "created_at": "2026-09-24T15:58:07Z"
-    },
-    {
-      "id": "2881974636",
-      "title": "NXT | UP-90 Vægle fakker avskum | !discord !server",
-      "url": "https://www.twitch.tv/videos/2881974636",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/61db9b987f4c031e2376_andersmish_316928349398_1790179384//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/61db9b987f4c031e2376_andersmish_316928349398_1790179384//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 12150,
-      "created_at": "2026-09-23T16:03:09Z"
     }
   ]
 }
