@@ -1,4 +1,4 @@
-name: Oppdater VOD-liste
+name: Oppdater VOD-liste og YouTube
 
 on:
   schedule:
@@ -24,16 +24,39 @@ jobs:
           python-version: "3.12"
 
       - name: Hent siste VOD-er
+        id: vods
+        continue-on-error: true
         run: python3 scripts/update_vods.py
 
-      - name: Commit vods.json hvis endret
+      - name: Hent nyeste YouTube-video (RSS)
+        id: youtube
+        continue-on-error: true
+        run: python3 scripts/update_youtube.py
+
+      - name: Commit endrede datafiler
         run: |
-          if git status --porcelain -- vods.json | grep -q .; then
+          if git status --porcelain -- vods.json youtube.json | grep -q .; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add vods.json
-            git commit -m "Oppdater vods.json (siste VOD: $(python3 -c "import json;print(json.load(open('vods.json'))['latest']['id'])"))"
+            git add vods.json youtube.json
+            parts=""
+            if ! git diff --cached --quiet -- vods.json; then
+              parts="vods.json (siste VOD: $(python3 -c "import json;print(json.load(open('vods.json'))['latest']['id'])"))"
+            fi
+            if ! git diff --cached --quiet -- youtube.json; then
+              yt="youtube.json (nyeste: $(python3 -c "import json;print(json.load(open('youtube.json'))['latest']['id'])"))"
+              parts="${parts:+$parts + }$yt"
+            fi
+            msg="Oppdater $parts"
+            git commit -m "$msg"
+            git pull --rebase
             git push
           else
-            echo "vods.json er uendret – ingen commit."
+            echo "Ingen endringer – ingen commit."
           fi
+
+      - name: Feil hvis VOD-henting feilet
+        if: steps.vods.outcome == 'failure'
+        run: |
+          echo "update_vods.py feilet – se loggen over."
+          exit 1

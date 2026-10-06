@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AndersMish – Twitch, TikTok og merch</title>
-  <meta name="description" content="AndersMish – norsk Twitch-streamer. 33 år gammelt barn. GTA RP på Project NXT. Finn stream, TikTok og merch her.">
+  <title>AndersMish – Twitch, TikTok, YouTube og merch</title>
+  <meta name="description" content="AndersMish – norsk Twitch-streamer. 33 år gammelt barn. GTA RP på Project NXT, hverdager fra kl. 18:00. Finn stream, stream-plan, TikTok, YouTube, Discord og merch her.">
   <meta name="theme-color" content="#0b0b0d">
   <link rel="canonical" href="https://andersmish.com/">
 
@@ -13,7 +13,7 @@
   <meta property="og:locale" content="nb_NO">
   <meta property="og:site_name" content="AndersMish">
   <meta property="og:title" content="AndersMish">
-  <meta property="og:description" content="33 år gammelt barn. GTA RP på Project NXT – live på Twitch.">
+  <meta property="og:description" content="33 år gammelt barn. GTA RP på Project NXT – live på Twitch hverdager fra kl. 18:00.">
   <meta property="og:url" content="https://andersmish.com/">
   <meta property="og:image" content="https://andersmish.com/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
   <meta property="og:image:alt" content="AndersMish-logoen: en sølvfarget M formet som en fjelltopp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AndersMish">
-  <meta name="twitter:description" content="33 år gammelt barn. GTA RP på Project NXT – live på Twitch.">
+  <meta name="twitter:description" content="33 år gammelt barn. GTA RP på Project NXT – live på Twitch hverdager fra kl. 18:00.">
   <meta name="twitter:image" content="https://andersmish.com/assets/og-image.png">
 
   <!-- Ikoner -->
@@ -30,10 +30,14 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
+  <link rel="preconnect" href="https://embed.twitch.tv">
+  <link rel="preconnect" href="https://static-cdn.jtvnw.net">
+
   <style>
     :root {
       --bg: #0b0b0d;
       --panel: #141417;
+      --panel-2: #18181c;
       --panel-hover: #1b1b1f;
       --line: rgba(255, 255, 255, 0.10);
       --line-strong: rgba(255, 255, 255, 0.28);
@@ -42,11 +46,13 @@
       --silver-lo: #8a9097;
       --text: #ececee;
       --muted: #9a9ca3;
+      --faint: #6c6e75;
+      --live: #ff4646;
+      --ok: #4cc38a;
       --radius: 16px;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-
     html { -webkit-text-size-adjust: 100%; }
 
     body {
@@ -60,25 +66,47 @@
       background-attachment: fixed;
       display: flex;
       flex-direction: column;
-      align-items: center;
       line-height: 1.5;
     }
 
-    main {
+    /* ---------- Oppsett: én kolonne på mobil, to kolonner på desktop ---------- */
+    .wrap {
       width: 100%;
       max-width: 460px;
-      padding: calc(56px + env(safe-area-inset-top)) 20px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      margin: 0 auto;
+      padding: calc(40px + env(safe-area-inset-top)) 20px 24px;
       flex: 1;
     }
+    .col-id { text-align: center; min-width: 0; }
+    .col-feed { min-width: 0; }
 
-    .logo { display: block; width: 168px; height: auto; }
+    /* ---------- Status-pille ---------- */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 100%;
+      padding: 5px 13px 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
+    }
+    .status:hover, .status:focus-visible { border-color: var(--line-strong); }
+    .status:focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
+    .status .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--faint); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05); }
+    .status strong { color: var(--text); font-weight: 650; }
+    .status[data-state="live"] { color: #fff; border-color: rgba(255, 70, 70, 0.45); background: rgba(255, 70, 70, 0.12); }
+    .status[data-state="live"] .dot { background: var(--live); box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6); animation: pulse 1.8s ease-out infinite; }
+    .status[hidden] { display: none; }
+
+    .logo { display: block; width: 156px; height: auto; margin: 22px auto 0; }
 
     h1 {
-      margin: 28px 0 6px;
+      margin: 22px 0 4px;
       font-size: 1.75rem;
       font-weight: 800;
       letter-spacing: 0.2em;
@@ -90,36 +118,36 @@
       background-clip: text;
       color: transparent;
     }
-
-    .bio {
-      margin: 0;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--text);
-    }
-
-    .about {
-      margin: 14px 0 0;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
+    .bio { margin: 0; font-size: 1.1rem; font-style: italic; color: var(--text); }
+    .about { margin: 12px 0 0; font-size: 0.95rem; color: var(--muted); }
     .about strong { color: var(--text); font-weight: 600; }
 
-    nav {
-      width: 100%;
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .team {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 4px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--silver);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: border-color 0.15s ease;
     }
+    .team:hover, .team:focus-visible { border-color: var(--line-strong); }
+    .team:focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
+    .team svg { width: 14px; height: 14px; flex: none; }
 
+    /* ---------- Lenkeknapper ---------- */
+    nav { width: 100%; margin-top: 26px; display: flex; flex-direction: column; gap: 10px; }
     .btn {
       display: flex;
       align-items: center;
       gap: 14px;
       width: 100%;
-      min-height: 64px;
-      padding: 12px 16px;
+      min-height: 62px;
+      padding: 11px 15px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
       background: var(--panel);
@@ -128,15 +156,9 @@
       text-align: left;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
     }
-
-    .btn:hover, .btn:focus-visible {
-      transform: translateY(-1px);
-      border-color: var(--line-strong);
-      background: var(--panel-hover);
-    }
+    .btn:hover, .btn:focus-visible { transform: translateY(-1px); border-color: var(--line-strong); background: var(--panel-hover); }
     .btn:focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
     .btn:active { transform: translateY(0); }
-
     .btn .icon {
       flex: none;
       display: grid;
@@ -148,36 +170,42 @@
       color: var(--silver-hi);
     }
     .btn .icon svg { width: 21px; height: 21px; }
-
     .btn .label { flex: 1; min-width: 0; }
     .btn .label strong { display: block; font-size: 1.05rem; font-weight: 650; }
-    .btn .label span { display: block; font-size: 0.85rem; color: var(--muted); }
-
+    .btn .label span { display: block; font-size: 0.84rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .btn .label span.meta { display: flex; align-items: center; gap: 6px; }
+    .btn .label span.meta i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
     .btn .arrow { flex: none; width: 18px; height: 18px; color: var(--muted); }
-
-    /* Hovedknapp (Twitch): sølvflate med mørk tekst */
-    .btn--primary {
-      border-color: transparent;
-      background: linear-gradient(180deg, #f2f3f5 0%, #d3d6db 100%);
-      color: #111114;
-    }
+    .btn--primary { border-color: transparent; background: linear-gradient(180deg, #f2f3f5 0%, #d3d6db 100%); color: #111114; }
     .btn--primary .icon { background: rgba(0, 0, 0, 0.08); color: #111114; }
     .btn--primary .label span { color: #4b4e55; }
     .btn--primary .arrow { color: #111114; }
-    .btn--primary:hover, .btn--primary:focus-visible {
-      border-color: transparent;
-      background: linear-gradient(180deg, #ffffff 0%, #dfe2e6 100%);
+    .btn--primary:hover, .btn--primary:focus-visible { border-color: transparent; background: linear-gradient(180deg, #ffffff 0%, #dfe2e6 100%); }
+
+    /* ---------- Kort (høyre kolonne) ---------- */
+    .card {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      text-align: left;
     }
+    .col-id + .col-feed .card:first-child { margin-top: 30px; }
+    .card-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
+    .card-h h2 {
+      margin: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+    .card-h a { flex: none; font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+    .card-h a:hover, .card-h a:focus-visible { color: var(--text); }
 
     /* Twitch-spiller: live når AndersMish sender, ellers siste VOD */
-    .stream { width: 100%; margin-top: 30px; text-align: left; }
-    .stream-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 26px;
-      margin-bottom: 10px;
-    }
+    .stream-head { display: flex; align-items: center; gap: 10px; min-height: 26px; margin-bottom: 10px; }
     .badge {
       flex: none;
       display: inline-flex;
@@ -186,7 +214,7 @@
       padding: 3px 10px 3px 9px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: var(--panel);
+      background: var(--panel-2);
       color: var(--silver);
       font-size: 0.72rem;
       font-weight: 700;
@@ -195,37 +223,21 @@
       line-height: 1.6;
     }
     .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--silver-lo); }
-    .badge[data-state="live"] {
-      color: #fff;
-      border-color: rgba(255, 70, 70, 0.45);
-      background: rgba(255, 70, 70, 0.12);
-    }
-    .badge[data-state="live"] .dot {
-      background: #ff4646;
-      box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6);
-      animation: pulse 1.8s ease-out infinite;
-    }
+    .badge[data-state="live"] { color: #fff; border-color: rgba(255, 70, 70, 0.45); background: rgba(255, 70, 70, 0.12); }
+    .badge[data-state="live"] .dot { background: var(--live); box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6); animation: pulse 1.8s ease-out infinite; }
     .badge[data-state="vod"] .dot { background: var(--silver); }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6); }
       70% { box-shadow: 0 0 0 7px rgba(255, 70, 70, 0); }
       100% { box-shadow: 0 0 0 0 rgba(255, 70, 70, 0); }
     }
-    .stream-title {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
+    .stream-title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 0.85rem; color: var(--muted); }
 
     .player {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: var(--radius);
+      border-radius: 12px;
       border: 1px solid var(--line);
       background: #000;
       overflow: hidden;
@@ -239,23 +251,8 @@
       text-decoration: none;
       background: radial-gradient(ellipse at 50% 40%, #1d1d22 0%, #09090b 75%);
     }
-    .player-fallback img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.4;
-    }
-    .player-fallback-inner {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
+    .player-fallback img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+    .player-fallback-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; }
     .player-fallback .play {
       display: grid;
       place-items: center;
@@ -274,49 +271,34 @@
     .player-embed:empty { display: none; }
     .player-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
 
-    .vods { width: 100%; margin-top: 18px; text-align: left; }
+    .vods { margin-top: 16px; }
     .vods[hidden] { display: none; }
-    .vods h2 {
-      margin: 0 0 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .vods .card-h { margin-bottom: 8px; }
+    .vods .card-h h2 { color: var(--muted); font-size: 0.7rem; }
     .vod-list {
       list-style: none;
-      margin: 0 -20px;
-      padding: 2px 20px 6px;
+      margin: 0 -14px;
+      padding: 2px 14px 4px;
       display: grid;
       grid-auto-flow: column;
-      grid-auto-columns: 42%;
+      grid-auto-columns: 44%;
       gap: 10px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-padding: 0 20px;
+      scroll-padding: 0 14px;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
     .vod-list::-webkit-scrollbar { display: none; }
-    .vod {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      height: 100%;
-      color: var(--text);
-      text-decoration: none;
-      scroll-snap-align: start;
-      border-radius: 12px;
-    }
+    .vod { display: flex; flex-direction: column; gap: 6px; height: 100%; color: var(--text); text-decoration: none; scroll-snap-align: start; border-radius: 12px; }
     .vod:focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
     .vod-thumb {
       position: relative;
       display: block;
       aspect-ratio: 16 / 9;
-      border-radius: 11px;
+      border-radius: 10px;
       border: 1px solid var(--line);
-      background: var(--panel);
+      background: var(--panel-2);
       overflow: hidden;
       transition: border-color 0.15s ease, transform 0.15s ease;
     }
@@ -337,115 +319,156 @@
     .vod-dur { right: 6px; bottom: 6px; }
     .vod-now { left: 6px; top: 6px; display: none; letter-spacing: 0.06em; text-transform: uppercase; }
     .vod[aria-current="true"] .vod-now { display: block; }
-    .vod-title {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      overflow: hidden;
-      font-size: 0.8rem;
-      font-weight: 600;
-      line-height: 1.3;
-    }
+    .vod-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; font-size: 0.8rem; font-weight: 600; line-height: 1.3; }
     .vod-date { margin-top: -3px; font-size: 0.72rem; color: var(--muted); }
 
-    .stream + nav, .vods + nav { margin-top: 24px; }
-
-    footer {
-      padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
-      font-size: 0.8rem;
-      color: #6c6e75;
+    /* ---------- Stream-plan ---------- */
+    .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 2px 7px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel-2);
       text-align: center;
+      min-width: 0;
     }
+    .day b { font-size: 0.7rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .day small { font-size: 0.66rem; color: var(--faint); line-height: 1.2; }
+    .day span { margin-top: 3px; font-size: 0.86rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .day.off { background: transparent; border-style: dashed; }
+    .day.off span { color: var(--faint); font-weight: 400; }
+    .day.cancelled span { color: var(--faint); font-weight: 500; text-decoration: line-through; }
+    .day.today b { color: var(--silver-hi); }
+    .day.next { border-color: var(--silver); border-style: solid; background: #1d1e22; }
+    .day.next b { color: var(--silver-hi); }
+    .plan-notes { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; font-size: 0.8rem; color: var(--muted); }
+    .plan-notes:empty { display: none; }
+    .plan-notes b { color: var(--text); font-weight: 600; }
+    .plan-fallback { margin: 0; font-size: 0.92rem; color: var(--text); }
+    .plan-foot { margin: 10px 0 0; font-size: 0.76rem; color: var(--faint); }
+    .plan-foot a { color: var(--silver); text-decoration: underline; text-decoration-color: rgba(201, 205, 210, 0.4); text-underline-offset: 2px; }
+    .plan-foot a:hover { color: var(--silver-hi); }
+
+    footer { padding: 16px 20px calc(24px + env(safe-area-inset-bottom)); font-size: 0.8rem; color: var(--faint); text-align: center; }
     footer p { margin: 0; }
 
     @media (min-width: 768px) {
-      main { padding-top: 72px; }
-      .vod-list {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(3, 1fr);
-        margin: 0;
-        padding: 0;
-        overflow: visible;
-      }
-      .logo { width: 184px; }
+      .wrap { padding-top: 56px; }
+      .logo { width: 172px; }
       h1 { font-size: 2rem; }
+      .vod-list { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); margin: 0; padding: 0; overflow: visible; }
     }
-
+    @media (min-width: 960px) {
+      .wrap {
+        max-width: 1080px;
+        display: grid;
+        grid-template-columns: 380px minmax(0, 1fr);
+        gap: 44px;
+        align-items: start;
+        padding: 64px 32px 32px;
+      }
+      .col-id + .col-feed .card:first-child { margin-top: 0; }
+    }
+    @media (max-width: 380px) {
+      .week { gap: 4px; }
+      .day b { font-size: 0.64rem; letter-spacing: 0.02em; }
+      .day span { font-size: 0.78rem; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .btn, .vod-thumb, .player-fallback .play { transition: none; }
-      .badge[data-state="live"] .dot { animation: none; }
+      .btn, .vod-thumb, .player-fallback .play, .status, .team { transition: none; }
+      .badge[data-state="live"] .dot, .status[data-state="live"] .dot { animation: none; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <picture>
-      <source srcset="assets/logo.webp" type="image/webp">
-      <img class="logo" src="assets/logo.png" width="600" height="477" alt="AndersMish-logo: en sølvfarget M formet som en fjelltopp" decoding="async">
-    </picture>
+  <div class="wrap">
+    <!-- Venstre (mobil: øverst): identitet + lenker -->
+    <div class="col-id">
+      <a class="status" id="status" href="#stream-plan" data-state="idle" hidden><span class="dot" aria-hidden="true"></span><span id="status-text"></span></a>
 
-    <h1>AndersMish</h1>
-    <p class="bio">«33 år gammelt barn.»</p>
-    <p class="about">Norsk streamer på Twitch.<br>For tiden mest <strong>GTA&nbsp;RP</strong> på <strong>Project&nbsp;NXT</strong>.<br>Kom innom chatten!</p>
+      <picture>
+        <source srcset="assets/logo.webp" type="image/webp">
+        <img class="logo" src="assets/logo.png" width="600" height="477" alt="AndersMish-logo: en sølvfarget M formet som en fjelltopp" decoding="async">
+      </picture>
 
-    <section class="stream" aria-label="Twitch-stream">
-      <div class="stream-head">
-        <span class="badge" id="stream-badge" data-state="idle"><span class="dot" aria-hidden="true"></span><span id="stream-badge-text">Twitch</span></span>
-        <span class="stream-title" id="stream-title" aria-live="polite"></span>
-      </div>
-      <div class="player" id="player">
-        <a class="player-fallback" id="player-fallback" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
-          <img id="player-poster" alt="" hidden>
-          <span class="player-fallback-inner">
-            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></span>
-            <span>Se AndersMish på Twitch</span>
-          </span>
+      <h1>AndersMish</h1>
+      <p class="bio">«33 år gammelt barn.»</p>
+      <p class="about">Norsk Twitch Partner. For tiden mest <strong>GTA&nbsp;RP</strong> på <strong>Project&nbsp;NXT</strong> som <strong>Vagle</strong>.<br>Kom innom chatten!</p>
+      <a class="team" href="https://projectnxt.no/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.7 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z"/></svg>
+        Del av streamer-teamet til Project NXT
+      </a>
+
+      <nav aria-label="Lenker">
+        <a class="btn btn--primary" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></span>
+          <span class="label"><strong>Twitch</strong><span>Se streamen live – følg for varsler</span></span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
         </a>
-        <div class="player-embed" id="twitch-embed"></div>
-      </div>
-    </section>
 
-    <section class="vods" id="vods" aria-labelledby="vods-heading" hidden>
-      <h2 id="vods-heading">Tidligere streamer</h2>
-      <ul class="vod-list" id="vod-list"></ul>
-    </section>
+        <a class="btn" href="https://www.tiktok.com/@andersmish" target="_blank" rel="noopener">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+          <span class="label"><strong>TikTok</strong><span>Klipp og høydepunkter</span></span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
 
-    <nav aria-label="Lenker">
-      <a class="btn btn--primary" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-        </span>
-        <span class="label"><strong>Twitch</strong><span>Se streamen live</span></span>
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
+        <a class="btn" href="https://www.youtube.com/@andersmishtv" target="_blank" rel="noopener">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+          <span class="label"><strong>YouTube</strong><span id="yt-sub">Shorts og videoer</span></span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
 
-      <a class="btn" href="https://www.tiktok.com/@andersmish" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-        </span>
-        <span class="label"><strong>TikTok</strong><span>Klipp og høydepunkter</span></span>
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
+        <a class="btn" href="https://discord.gg/XPXR6wDBpP" target="_blank" rel="noopener">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></span>
+          <span class="label"><strong>Discord</strong><span id="dc-sub">Live-varsler og info</span></span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
 
-      <a class="btn" href="https://discord.gg/XPXR6wDBpP" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
-        </span>
-        <span class="label"><strong>Discord</strong><span>Live-varsler og info</span></span>
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
+        <!-- Merch: midlertidig Spreadshop-lenke. Byttes senere til https://merch.andersmish.com/ -->
+        <a class="btn" href="https://andersmish.myspreadshop.no/" target="_blank" rel="noopener">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3.5 5.5 2 10l3 1.2V21h14v-9.8L22 10l-1.5-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3z"/></svg></span>
+          <span class="label"><strong>Merch</strong><span>Klær og annet fra butikken</span></span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
+    </div>
 
-      <!-- Merch: midlertidig Spreadshop-lenke. Byttes senere til https://merch.andersmish.com/ -->
-      <a class="btn" href="https://andersmish.myspreadshop.no/" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3.5 5.5 2 10l3 1.2V21h14v-9.8L22 10l-1.5-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3z"/></svg>
-        </span>
-        <span class="label"><strong>Merch</strong><span>Klær og annet fra butikken</span></span>
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-    </nav>
-  </main>
+    <!-- Høyre (mobil: under): Twitch-spiller + tidligere streamer + stream-plan -->
+    <div class="col-feed">
+      <section class="card stream" aria-label="Twitch-stream">
+        <div class="stream-head">
+          <span class="badge" id="stream-badge" data-state="idle"><span class="dot" aria-hidden="true"></span><span id="stream-badge-text">Twitch</span></span>
+          <span class="stream-title" id="stream-title" aria-live="polite"></span>
+        </div>
+        <div class="player" id="player">
+          <a class="player-fallback" id="player-fallback" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
+            <img id="player-poster" alt="" hidden>
+            <span class="player-fallback-inner">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></span>
+              <span>Se AndersMish på Twitch</span>
+            </span>
+          </a>
+          <div class="player-embed" id="twitch-embed"></div>
+        </div>
+
+        <div class="vods" id="vods" hidden>
+          <div class="card-h"><h2 id="vods-heading">Tidligere streamer</h2><a href="https://www.twitch.tv/andersmish/videos?filter=archives&amp;sort=time" target="_blank" rel="noopener">Alle VOD-er →</a></div>
+          <ul class="vod-list" id="vod-list" aria-labelledby="vods-heading"></ul>
+        </div>
+      </section>
+
+      <section class="card plan" id="stream-plan" aria-labelledby="plan-heading">
+        <div class="card-h"><h2 id="plan-heading">Stream-plan</h2></div>
+        <p class="plan-fallback" id="plan-fallback">Mandag–fredag fra kl. 18:00. Lørdag og søndag fri.</p>
+        <div class="week" id="plan-week" hidden></div>
+        <ul class="plan-notes" id="plan-notes"></ul>
+        <p class="plan-foot">Norsk tid. Endringer legges ut på <a href="https://discord.gg/XPXR6wDBpP" target="_blank" rel="noopener">Discord</a>.</p>
+      </section>
+    </div>
+  </div>
 
   <footer>
     <p>© <span id="year">2026</span> AndersMish</p>
@@ -457,17 +480,180 @@
     var CHANNEL = 'andersmish';
     var PARENTS = ['andersmish.com', 'www.andersmish.com', 'andersmish.github.io'];
     var EMBED_TIMEOUT_MS = 15000;
+    var TZ = 'Europe/Oslo';
+    var DISCORD_INVITE = 'XPXR6wDBpP';
 
     var $ = function (id) { return document.getElementById(id); };
     var badge = $('stream-badge'), badgeText = $('stream-badge-text'), titleEl = $('stream-title');
-    var playerEl = $('player'), fallback = $('player-fallback'), poster = $('player-poster');
+    var playerEl = $('player'), poster = $('player-poster');
     var embedEl = $('twitch-embed'), vodsSection = $('vods'), vodList = $('vod-list');
+    var statusEl = $('status'), statusText = $('status-text');
 
     var vods = [];          // fra vods.json (oppdateres av GitHub Actions)
     var live = null;        // null = ukjent, true/false fra Twitch-spilleren
     var embed = null, ready = false, currentVod = null, userPicked = false;
 
-    // ---------- hjelpere ----------
+    // =====================================================================
+    // Stream-plan (schedule.json) – all tid regnes i norsk tid (Europe/Oslo)
+    // =====================================================================
+    var DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    var DAY_SHORT = ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'];
+    var DAY_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
+    var MONTHS = ['jan.', 'feb.', 'mars', 'apr.', 'mai', 'juni', 'juli', 'aug.', 'sep.', 'okt.', 'nov.', 'des.'];
+    var GRACE_MIN = 60;     // vis «i dag 18:00» til en time etter start hvis han ikke er live ennå
+    var schedule = {        // reserve hvis schedule.json ikke kan lastes
+      weekly: { mon: '18:00', tue: '18:00', wed: '18:00', thu: '18:00', fri: '18:00', sat: null, sun: null },
+      overrides: {}
+    };
+    var TIME_RE = /^([01]?\d|2[0-3]):([0-5]\d)$/;
+
+    function osloNow() {
+      var parts = {};
+      new Intl.DateTimeFormat('en-GB', {
+        timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+      }).formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+      return { y: +parts.year, m: +parts.month, d: +parts.day, min: (+parts.hour % 24) * 60 + (+parts.minute) };
+    }
+    function pad(n) { return String(n).padStart(2, '0'); }
+    // Kalenderdag nr. «offset» fra i dag (i Oslo), uavhengig av besøkendes tidssone
+    function dayInfo(base, offset) {
+      var dt = new Date(Date.UTC(base.y, base.m - 1, base.d + offset));
+      return {
+        key: dt.getUTCFullYear() + '-' + pad(dt.getUTCMonth() + 1) + '-' + pad(dt.getUTCDate()),
+        dow: dt.getUTCDay(), date: dt.getUTCDate(), month: dt.getUTCMonth(), offset: offset
+      };
+    }
+    function toMin(t) { var m = TIME_RE.exec(t || ''); return m ? (+m[1]) * 60 + (+m[2]) : null; }
+    function fmtTime(t) { var m = TIME_RE.exec(t || ''); return m ? pad(+m[1]) + ':' + m[2] : ''; }
+    // Hva gjelder en gitt dag? { time: 'HH:MM' | null, cancelled, note, override }
+    function slotFor(day) {
+      var weekly = schedule.weekly || {}, ov = (schedule.overrides || {})[day.key];
+      var base = TIME_RE.test(weekly[DAY_KEYS[day.dow]] || '') ? weekly[DAY_KEYS[day.dow]] : null;
+      if (ov && typeof ov === 'object') {
+        if (ov.cancelled) return { time: null, planned: base, cancelled: true, note: ov.note || '', override: true };
+        if (TIME_RE.test(ov.time || '')) return { time: ov.time, cancelled: false, note: ov.note || '', override: true, changed: ov.time !== base };
+        if (ov.off) return { time: null, cancelled: false, note: ov.note || '', override: true };
+        return { time: base, cancelled: false, note: ov.note || '', override: !!ov.note };
+      }
+      return { time: base, cancelled: false, note: '', override: false };
+    }
+    function nextStream(now) {
+      for (var i = 0; i < 21; i++) {
+        var day = dayInfo(now, i), slot = slotFor(day);
+        if (!slot.time) continue;
+        if (i === 0 && now.min >= toMin(slot.time) + GRACE_MIN) continue;
+        return { day: day, slot: slot };
+      }
+      return null;
+    }
+    function whenText(day) {
+      if (day.offset === 0) return 'i dag';
+      if (day.offset === 1) return 'i morgen';
+      if (day.offset < 7) return DAY_LONG[day.dow];
+      return DAY_LONG[day.dow] + ' ' + day.date + '. ' + MONTHS[day.month];
+    }
+
+    function renderStatus() {
+      statusEl.hidden = false;
+      if (live === true) {
+        statusEl.dataset.state = 'live';
+        statusEl.href = 'https://twitch.tv/' + CHANNEL;
+        statusEl.target = '_blank'; statusEl.rel = 'noopener';
+        statusText.innerHTML = '<strong>LIVE</strong> · se streamen nå';
+        return;
+      }
+      statusEl.dataset.state = 'idle';
+      statusEl.href = '#stream-plan';
+      statusEl.removeAttribute('target'); statusEl.removeAttribute('rel');
+      var n = nextStream(osloNow());
+      var prefix = live === false ? '<strong>Offline</strong> · ' : '';
+      statusText.innerHTML = prefix + (n
+        ? (prefix ? 'neste' : 'Neste') + ' stream ' + whenText(n.day) + ' ' + fmtTime(n.slot.time)
+        : (prefix ? 'ingen planlagte streamer' : 'Ingen planlagte streamer akkurat nå'));
+    }
+
+    function renderPlan() {
+      var now = osloNow(), next = nextStream(now);
+      var week = $('plan-week'), notes = $('plan-notes');
+      var frag = document.createDocumentFragment(), noteFrag = document.createDocumentFragment();
+      for (var i = 0; i < 7; i++) {
+        var day = dayInfo(now, i), slot = slotFor(day);
+        var el = document.createElement('div');
+        el.className = 'day' + (slot.time ? '' : ' off') + (slot.cancelled ? ' cancelled' : '') +
+          (i === 0 ? ' today' : '') + (next && next.day.key === day.key ? ' next' : '');
+        var b = document.createElement('b'); b.textContent = i === 0 ? 'I dag' : DAY_SHORT[day.dow];
+        var sm = document.createElement('small'); sm.textContent = day.date + '.';
+        var sp = document.createElement('span');
+        sp.textContent = slot.time ? fmtTime(slot.time) : (slot.cancelled ? fmtTime(slot.planned) || 'Avlyst' : '–');
+        el.append(b, sm, sp);
+        var label = DAY_LONG[day.dow] + ' ' + day.date + '. ' + MONTHS[day.month] + ': ' +
+          (slot.time ? 'stream kl. ' + fmtTime(slot.time) : (slot.cancelled ? 'avlyst' : 'fri'));
+        if (slot.note) label += ' – ' + slot.note;
+        el.title = label;
+        el.setAttribute('aria-label', label + (next && next.day.key === day.key ? ' (neste stream)' : ''));
+        el.setAttribute('role', 'listitem');
+        frag.appendChild(el);
+        if (slot.cancelled || slot.note || slot.changed) {
+          var li = document.createElement('li');
+          var lb = document.createElement('b');
+          lb.textContent = DAY_SHORT[day.dow] + ' ' + day.date + '. ' + MONTHS[day.month] + ': ';
+          li.appendChild(lb);
+          var txt = slot.cancelled ? 'Avlyst' : (slot.time ? 'Stream kl. ' + fmtTime(slot.time) : 'Fri');
+          li.appendChild(document.createTextNode(txt + (slot.note ? ' – ' + slot.note : '')));
+          noteFrag.appendChild(li);
+        }
+      }
+      week.setAttribute('role', 'list');
+      week.replaceChildren(frag);
+      notes.replaceChildren(noteFrag);
+      week.hidden = false;
+      $('plan-fallback').hidden = true;
+      renderStatus();
+    }
+
+    renderPlan();
+    fetch('schedule.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        if (data && typeof data.weekly === 'object') {
+          schedule = { weekly: data.weekly, overrides: (data.overrides && typeof data.overrides === 'object') ? data.overrides : {} };
+          renderPlan();
+        }
+      })
+      .catch(function () { /* beholder standardplanen */ });
+    setInterval(renderPlan, 60 * 1000);
+
+    // =====================================================================
+    // Discord (offentlig invitasjons-API) og YouTube (youtube.json fra RSS)
+    // =====================================================================
+    var nf = new Intl.NumberFormat('nb-NO');
+    fetch('https://discord.com/api/v9/invites/' + DISCORD_INVITE + '?with_counts=true')
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        var total = d && d.approximate_member_count, online = d && d.approximate_presence_count;
+        if (!(total > 0)) return;
+        var sub = $('dc-sub');
+        sub.className = 'meta';
+        sub.replaceChildren();
+        var dot = document.createElement('i'); dot.setAttribute('aria-hidden', 'true');
+        sub.append(dot, document.createTextNode(nf.format(total) + ' medlemmer' + (online >= 0 ? ' · ' + nf.format(online) + ' pålogget' : '')));
+      })
+      .catch(function () { /* beholder standardteksten */ });
+
+    fetch('youtube.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        var t = d && d.latest && d.latest.title;
+        if (!t) return;
+        t = t.replace(/\s*#shorts?\b/ig, '').trim();
+        if (t) $('yt-sub').textContent = 'Nyeste: «' + t + '»';
+      })
+      .catch(function () { /* beholder standardteksten */ });
+
+    // =====================================================================
+    // Twitch-spiller + tidligere streamer (vods.json)
+    // =====================================================================
     function cleanTitle(t) {
       // Fjerner chat-kommandoer (!discord, !server …) og overflødige skilletegn fra visningen
       return (t || '').replace(/(^|\s)![\w\u00C0-\u017F-]+/g, ' ').replace(/(\s*\|\s*)+$/, '').replace(/\s{2,}/g, ' ').trim() || t;
@@ -481,7 +667,7 @@
     function fmtDate(iso) {
       if (!iso) return '';
       try {
-        return new Intl.DateTimeFormat('nb-NO', { day: 'numeric', month: 'short' }).format(new Date(iso));
+        return new Intl.DateTimeFormat('nb-NO', { day: 'numeric', month: 'short', timeZone: TZ }).format(new Date(iso));
       } catch (e) { return ''; }
     }
     function setBadge(state, text, title) {
@@ -499,7 +685,6 @@
       }
     }
 
-    // ---------- tilstand ----------
     function showVod(vod, picked) {
       if (!vod) return;
       currentVod = vod.id;
@@ -523,9 +708,9 @@
         else setBadge('idle', 'Offline', 'AndersMish er ikke live akkurat nå');
       }
       markCurrent();
+      renderStatus();
     }
 
-    // ---------- VOD-liste ----------
     function renderVods() {
       if (!vods.length) return;
       var latest = vods[0];
@@ -586,7 +771,6 @@
       })
       .catch(function () { /* ingen VOD-liste: siden fungerer fortsatt */ });
 
-    // ---------- Twitch-embed ----------
     function failEmbed() {
       if (ready) return;
       if (embed) { try { embed.destroy(); } catch (e) {} }
@@ -620,7 +804,7 @@
         alive();
         if (live === true) return;
         // Bytt til live med mindre brukeren selv ser på en VOD akkurat nå
-        if (userPicked && ready && !embed.getPlayer().isPaused()) { live = true; markCurrent(); return; }
+        if (userPicked && ready && !embed.getPlayer().isPaused()) { live = true; markCurrent(); renderStatus(); return; }
         live = true; userPicked = false; apply();
       });
       embed.addEventListener(E.OFFLINE || 'offline', function () {
@@ -629,22 +813,14 @@
         live = false; apply();
       });
     }
-    function loadEmbed() {
-      var s = document.createElement('script');
-      s.src = 'https://embed.twitch.tv/embed/v1.js';
-      s.async = true;
-      s.onload = initEmbed;
-      s.onerror = failEmbed;
-      document.head.appendChild(s);
-    }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadEmbed(); }
-      }, { rootMargin: '300px' });
-      io.observe(playerEl);
-    } else {
-      loadEmbed();
-    }
+    // Spilleren lastes med en gang (ikke først ved scrolling), slik at status-pillen øverst
+    // kan vise LIVE/Offline også på mobil der spilleren ligger lenger ned.
+    var s = document.createElement('script');
+    s.src = 'https://embed.twitch.tv/embed/v1.js';
+    s.async = true;
+    s.onload = initEmbed;
+    s.onerror = failEmbed;
+    document.head.appendChild(s);
   })();
   </script>
 </body>

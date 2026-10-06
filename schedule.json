@@ -1,0 +1,14 @@
+{
+  "_hjelp": "Fast ukeplan i 'weekly' (klokkeslett «HH:MM» i norsk tid, eller null = fri). Unntak for enkeltdatoer i 'overrides' med nøkkel «ÅÅÅÅ-MM-DD»: {\"cancelled\": true, \"note\": \"...\"} for å avlyse, {\"time\": \"20:00\", \"note\": \"...\"} for annet klokkeslett / ekstra stream. Gamle datoer kan bare slettes.",
+  "timezone": "Europe/Oslo",
+  "weekly": {
+    "mon": "18:00",
+    "tue": "18:00",
+    "wed": "18:00",
+    "thu": "18:00",
+    "fri": "18:00",
+    "sat": null,
+    "sun": null
+  },
+  "overrides": {}
+}
