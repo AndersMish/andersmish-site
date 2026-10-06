@@ -1,0 +1,70 @@
+{
+  "channel": "andersmish",
+  "updated_at": "2026-10-06T09:09:52Z",
+  "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
+  "latest": {
+    "id": "2892660881",
+    "title": "NXT | Y-13 Vaglefjes | !discord !server !hjul",
+    "url": "https://www.twitch.tv/videos/2892660881",
+    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-320x180.jpg",
+    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-640x360.jpg",
+    "duration_seconds": 11850,
+    "created_at": "2026-10-05T16:20:48Z"
+  },
+  "vods": [
+    {
+      "id": "2892660881",
+      "title": "NXT | Y-13 Vaglefjes | !discord !server !hjul",
+      "url": "https://www.twitch.tv/videos/2892660881",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 11850,
+      "created_at": "2026-10-05T16:20:48Z"
+    },
+    {
+      "id": "2888132762",
+      "title": "NXT | Y-13 Vægle | !discord !server",
+      "url": "https://www.twitch.tv/videos/2888132762",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/6ff7eefaae5da95c7d6d_andersmish_316938539477_1790783869//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/6ff7eefaae5da95c7d6d_andersmish_316938539477_1790783869//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 8980,
+      "created_at": "2026-09-30T15:57:54Z"
+    },
+    {
+      "id": "2886439059",
+      "title": "NXT | UP-90 Vægle | !discord !server",
+      "url": "https://www.twitch.tv/videos/2886439059",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a353140eb23bc36ebbc5_andersmish_316960388054_1790612163//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a353140eb23bc36ebbc5_andersmish_316960388054_1790612163//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 12870,
+      "created_at": "2026-09-28T16:16:08Z"
+    },
+    {
+      "id": "2883685772",
+      "title": "NXT | UP-90 Vægle har hælj! | !discord !server",
+      "url": "https://www.twitch.tv/videos/2883685772",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/c5e0c904dd6ae12fa678_andersmish_316985156308_1790352579//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/c5e0c904dd6ae12fa678_andersmish_316985156308_1790352579//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 9380,
+      "created_at": "2026-09-25T16:09:44Z"
+    },
+    {
+      "id": "2882822341",
+      "title": "NXT | UP-90 Vægle jakter avskum | !discord !server",
+      "url": "https://www.twitch.tv/videos/2882822341",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a631b6abb79e0eba8004_andersmish_316933848662_1790265482//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a631b6abb79e0eba8004_andersmish_316933848662_1790265482//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 8050,
+      "created_at": "2026-09-24T15:58:07Z"
+    },
+    {
+      "id": "2881974636",
+      "title": "NXT | UP-90 Vægle fakker avskum | !discord !server",
+      "url": "https://www.twitch.tv/videos/2881974636",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/61db9b987f4c031e2376_andersmish_316928349398_1790179384//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/61db9b987f4c031e2376_andersmish_316928349398_1790179384//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 12150,
+      "created_at": "2026-09-23T16:03:09Z"
+    }
+  ]
+}
