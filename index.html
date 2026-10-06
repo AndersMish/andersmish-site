@@ -169,6 +169,188 @@
       background: linear-gradient(180deg, #ffffff 0%, #dfe2e6 100%);
     }
 
+    /* Twitch-spiller: live når AndersMish sender, ellers siste VOD */
+    .stream { width: 100%; margin-top: 30px; text-align: left; }
+    .stream-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 26px;
+      margin-bottom: 10px;
+    }
+    .badge {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 3px 10px 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--silver);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--silver-lo); }
+    .badge[data-state="live"] {
+      color: #fff;
+      border-color: rgba(255, 70, 70, 0.45);
+      background: rgba(255, 70, 70, 0.12);
+    }
+    .badge[data-state="live"] .dot {
+      background: #ff4646;
+      box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6);
+      animation: pulse 1.8s ease-out infinite;
+    }
+    .badge[data-state="vod"] .dot { background: var(--silver); }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 70, 70, 0.6); }
+      70% { box-shadow: 0 0 0 7px rgba(255, 70, 70, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 70, 70, 0); }
+    }
+    .stream-title {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #000;
+      overflow: hidden;
+    }
+    .player-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      text-decoration: none;
+      background: radial-gradient(ellipse at 50% 40%, #1d1d22 0%, #09090b 75%);
+    }
+    .player-fallback img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+    .player-fallback-inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .player-fallback .play {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--line-strong);
+      color: var(--silver-hi);
+      transition: background 0.15s ease;
+    }
+    .player-fallback .play svg { width: 22px; height: 22px; }
+    .player-fallback:hover .play, .player-fallback:focus-visible .play { background: rgba(255, 255, 255, 0.18); }
+    .player-fallback:focus-visible { outline: 2px solid var(--silver); outline-offset: -2px; }
+    .player-embed { position: absolute; inset: 0; }
+    .player-embed:empty { display: none; }
+    .player-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+    .vods { width: 100%; margin-top: 18px; text-align: left; }
+    .vods[hidden] { display: none; }
+    .vods h2 {
+      margin: 0 0 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .vod-list {
+      list-style: none;
+      margin: 0 -20px;
+      padding: 2px 20px 6px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 42%;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 20px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .vod-list::-webkit-scrollbar { display: none; }
+    .vod {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+      color: var(--text);
+      text-decoration: none;
+      scroll-snap-align: start;
+      border-radius: 12px;
+    }
+    .vod:focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
+    .vod-thumb {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      overflow: hidden;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .vod-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .vod:hover .vod-thumb, .vod:focus-visible .vod-thumb { border-color: var(--line-strong); transform: translateY(-1px); }
+    .vod[aria-current="true"] .vod-thumb { border-color: var(--silver); box-shadow: 0 0 0 1px var(--silver); }
+    .vod-dur, .vod-now {
+      position: absolute;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.78);
+      color: var(--silver-hi);
+      font-size: 0.68rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.5;
+    }
+    .vod-dur { right: 6px; bottom: 6px; }
+    .vod-now { left: 6px; top: 6px; display: none; letter-spacing: 0.06em; text-transform: uppercase; }
+    .vod[aria-current="true"] .vod-now { display: block; }
+    .vod-title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .vod-date { margin-top: -3px; font-size: 0.72rem; color: var(--muted); }
+
+    .stream + nav, .vods + nav { margin-top: 24px; }
+
     footer {
       padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
       font-size: 0.8rem;
@@ -179,12 +361,20 @@
 
     @media (min-width: 768px) {
       main { padding-top: 72px; }
+      .vod-list {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+      }
       .logo { width: 184px; }
       h1 { font-size: 2rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .btn { transition: none; }
+      .btn, .vod-thumb, .player-fallback .play { transition: none; }
+      .badge[data-state="live"] .dot { animation: none; }
     }
   </style>
 </head>
@@ -198,6 +388,28 @@
     <h1>AndersMish</h1>
     <p class="bio">«33 år gammelt barn.»</p>
     <p class="about">Norsk streamer på Twitch.<br>For tiden mest <strong>GTA&nbsp;RP</strong> på <strong>Project&nbsp;NXT</strong>.<br>Kom innom chatten!</p>
+
+    <section class="stream" aria-label="Twitch-stream">
+      <div class="stream-head">
+        <span class="badge" id="stream-badge" data-state="idle"><span class="dot" aria-hidden="true"></span><span id="stream-badge-text">Twitch</span></span>
+        <span class="stream-title" id="stream-title" aria-live="polite"></span>
+      </div>
+      <div class="player" id="player">
+        <a class="player-fallback" id="player-fallback" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
+          <img id="player-poster" alt="" hidden>
+          <span class="player-fallback-inner">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></span>
+            <span>Se AndersMish på Twitch</span>
+          </span>
+        </a>
+        <div class="player-embed" id="twitch-embed"></div>
+      </div>
+    </section>
+
+    <section class="vods" id="vods" aria-labelledby="vods-heading" hidden>
+      <h2 id="vods-heading">Tidligere streamer</h2>
+      <ul class="vod-list" id="vod-list"></ul>
+    </section>
 
     <nav aria-label="Lenker">
       <a class="btn btn--primary" href="https://twitch.tv/andersmish" target="_blank" rel="noopener">
@@ -239,5 +451,201 @@
     <p>© <span id="year">2026</span> AndersMish</p>
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+  (function () {
+    'use strict';
+    var CHANNEL = 'andersmish';
+    var PARENTS = ['andersmish.com', 'www.andersmish.com', 'andersmish.github.io'];
+    var EMBED_TIMEOUT_MS = 15000;
+
+    var $ = function (id) { return document.getElementById(id); };
+    var badge = $('stream-badge'), badgeText = $('stream-badge-text'), titleEl = $('stream-title');
+    var playerEl = $('player'), fallback = $('player-fallback'), poster = $('player-poster');
+    var embedEl = $('twitch-embed'), vodsSection = $('vods'), vodList = $('vod-list');
+
+    var vods = [];          // fra vods.json (oppdateres av GitHub Actions)
+    var live = null;        // null = ukjent, true/false fra Twitch-spilleren
+    var embed = null, ready = false, currentVod = null, userPicked = false;
+
+    // ---------- hjelpere ----------
+    function cleanTitle(t) {
+      // Fjerner chat-kommandoer (!discord, !server …) og overflødige skilletegn fra visningen
+      return (t || '').replace(/(^|\s)![\w\u00C0-\u017F-]+/g, ' ').replace(/(\s*\|\s*)+$/, '').replace(/\s{2,}/g, ' ').trim() || t;
+    }
+    function fmtDuration(sec) {
+      if (!sec) return '';
+      var h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+      var mm = (h ? String(m).padStart(2, '0') : m) + ':' + String(s).padStart(2, '0');
+      return h ? h + ':' + mm : mm;
+    }
+    function fmtDate(iso) {
+      if (!iso) return '';
+      try {
+        return new Intl.DateTimeFormat('nb-NO', { day: 'numeric', month: 'short' }).format(new Date(iso));
+      } catch (e) { return ''; }
+    }
+    function setBadge(state, text, title) {
+      badge.dataset.state = state;
+      badgeText.textContent = text;
+      titleEl.textContent = title || '';
+      titleEl.title = title || '';
+    }
+    function markCurrent() {
+      var cards = vodList.querySelectorAll('.vod');
+      for (var i = 0; i < cards.length; i++) {
+        var on = !live && cards[i].dataset.id === currentVod;
+        if (on) cards[i].setAttribute('aria-current', 'true'); else cards[i].removeAttribute('aria-current');
+        cards[i].title = live ? 'Åpne på Twitch' : 'Spill av her';
+      }
+    }
+
+    // ---------- tilstand ----------
+    function showVod(vod, picked) {
+      if (!vod) return;
+      currentVod = vod.id;
+      var isLatest = vods.length && vods[0].id === vod.id;
+      setBadge('vod', isLatest ? 'Siste stream' : 'Tidligere stream',
+        cleanTitle(vod.title) + (vod.created_at ? ' · ' + fmtDate(vod.created_at) : ''));
+      if (ready && embed) {
+        var p = embed.getPlayer();
+        if (p.getVideo() !== vod.id) p.setVideo(vod.id);
+      }
+      if (picked) userPicked = true;
+      markCurrent();
+    }
+    function apply() {
+      if (live === true) {
+        currentVod = null;
+        setBadge('live', 'LIVE nå', 'AndersMish sender direkte på Twitch');
+        if (ready && embed && embed.getPlayer().getChannel() !== CHANNEL) embed.getPlayer().setChannel(CHANNEL);
+      } else if (live === false) {
+        if (vods.length) showVod(currentVod ? (vods.filter(function (v) { return v.id === currentVod; })[0] || vods[0]) : vods[0]);
+        else setBadge('idle', 'Offline', 'AndersMish er ikke live akkurat nå');
+      }
+      markCurrent();
+    }
+
+    // ---------- VOD-liste ----------
+    function renderVods() {
+      if (!vods.length) return;
+      var latest = vods[0];
+      if (latest.thumbnail_large) { poster.src = latest.thumbnail_large; poster.hidden = false; }
+      var frag = document.createDocumentFragment();
+      vods.forEach(function (v) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.className = 'vod';
+        a.href = v.url || ('https://www.twitch.tv/videos/' + v.id);
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.dataset.id = v.id;
+        var thumb = document.createElement('span');
+        thumb.className = 'vod-thumb';
+        if (v.thumbnail) {
+          var img = document.createElement('img');
+          img.src = v.thumbnail; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+          img.width = 320; img.height = 180;
+          img.onerror = function () { img.remove(); };
+          thumb.appendChild(img);
+        }
+        if (v.duration_seconds) {
+          var d = document.createElement('span');
+          d.className = 'vod-dur'; d.textContent = fmtDuration(v.duration_seconds);
+          thumb.appendChild(d);
+        }
+        var now = document.createElement('span');
+        now.className = 'vod-now'; now.textContent = 'Spilles';
+        thumb.appendChild(now);
+        var t = document.createElement('span');
+        t.className = 'vod-title'; t.textContent = cleanTitle(v.title);
+        var dt = document.createElement('span');
+        dt.className = 'vod-date'; dt.textContent = fmtDate(v.created_at);
+        a.append(thumb, t, dt);
+        a.setAttribute('aria-label', cleanTitle(v.title) + (v.created_at ? ', ' + fmtDate(v.created_at) : ''));
+        a.addEventListener('click', function (e) {
+          // Offline + spilleren klar: spill av her. Live eller ingen spiller: åpne på Twitch.
+          if (live || !ready) return;
+          e.preventDefault();
+          showVod(v, true);
+          var r = playerEl.getBoundingClientRect();
+          if (r.top < 0 || r.bottom > window.innerHeight) playerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        li.appendChild(a);
+        frag.appendChild(li);
+      });
+      vodList.replaceChildren(frag);
+      vodsSection.hidden = false;
+      apply();
+    }
+
+    fetch('vods.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        vods = (data && data.vods || []).filter(function (v) { return v && /^\d+$/.test(v.id); }).slice(0, 6);
+        renderVods();
+      })
+      .catch(function () { /* ingen VOD-liste: siden fungerer fortsatt */ });
+
+    // ---------- Twitch-embed ----------
+    function failEmbed() {
+      if (ready) return;
+      if (embed) { try { embed.destroy(); } catch (e) {} }
+      embed = null;
+      embedEl.replaceChildren();
+      if (badge.dataset.state === 'idle') setBadge('idle', 'Twitch', 'Se live og tidligere streamer på Twitch');
+    }
+    function initEmbed() {
+      if (!window.Twitch || !window.Twitch.Embed) return failEmbed();
+      var E = window.Twitch.Embed;
+      try {
+        embed = new E('twitch-embed', {
+          channel: CHANNEL,
+          layout: 'video',
+          width: '100%',
+          height: '100%',
+          autoplay: false,
+          theme: 'dark',
+          parent: PARENTS
+        });
+      } catch (e) { return failEmbed(); }
+      var timer = setTimeout(failEmbed, EMBED_TIMEOUT_MS);
+      // NB: I embed/v1.js sendes spiller-hendelser (online/offline) via embed-objektet.
+      embed.addEventListener(E.VIDEO_READY, function () {
+        clearTimeout(timer);
+        ready = true;
+        apply();
+      });
+      function alive() { clearTimeout(timer); ready = true; }
+      embed.addEventListener(E.ONLINE || 'online', function () {
+        alive();
+        if (live === true) return;
+        // Bytt til live med mindre brukeren selv ser på en VOD akkurat nå
+        if (userPicked && ready && !embed.getPlayer().isPaused()) { live = true; markCurrent(); return; }
+        live = true; userPicked = false; apply();
+      });
+      embed.addEventListener(E.OFFLINE || 'offline', function () {
+        alive();
+        if (live === false) return;
+        live = false; apply();
+      });
+    }
+    function loadEmbed() {
+      var s = document.createElement('script');
+      s.src = 'https://embed.twitch.tv/embed/v1.js';
+      s.async = true;
+      s.onload = initEmbed;
+      s.onerror = failEmbed;
+      document.head.appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadEmbed(); }
+      }, { rootMargin: '300px' });
+      io.observe(playerEl);
+    } else {
+      loadEmbed();
+    }
+  })();
+  </script>
 </body>
 </html>

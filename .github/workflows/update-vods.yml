@@ -1,0 +1,39 @@
+name: Oppdater VOD-liste
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-vods
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Hent siste VOD-er
+        run: python3 scripts/update_vods.py
+
+      - name: Commit vods.json hvis endret
+        run: |
+          if git status --porcelain -- vods.json | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add vods.json
+            git commit -m "Oppdater vods.json (siste VOD: $(python3 -c "import json;print(json.load(open('vods.json'))['latest']['id'])"))"
+            git push
+          else
+            echo "vods.json er uendret – ingen commit."
+          fi
