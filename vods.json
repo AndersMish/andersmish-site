@@ -1,17 +1,35 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-07T20:05:10Z",
+  "updated_at": "2026-10-08T19:43:29Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2894358466",
-    "title": "NXT | Y-13 Frank O. Vagle | !discord !server !hjul",
-    "url": "https://www.twitch.tv/videos/2894358466",
-    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/7b1c136ecb80bfb92002_andersmish_317018314838_1791388926//thumb/thumb0-320x180.jpg",
-    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/7b1c136ecb80bfb92002_andersmish_317018314838_1791388926//thumb/thumb0-640x360.jpg",
-    "duration_seconds": 11910,
-    "created_at": "2026-10-07T16:02:14Z"
+    "id": "2895231578",
+    "title": "NXT | Y-13 Vægle er kranglete | !discord !server !hjul",
+    "url": "https://www.twitch.tv/videos/2895231578",
+    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/4d9f51dbbe5e9171cc16_andersmish_317068681556_1791475773//thumb/thumb0-320x180.jpg",
+    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/4d9f51dbbe5e9171cc16_andersmish_317068681556_1791475773//thumb/thumb0-640x360.jpg",
+    "duration_seconds": 11080,
+    "created_at": "2026-10-08T16:09:41Z"
   },
   "vods": [
+    {
+      "id": "2895231578",
+      "title": "NXT | Y-13 Vægle er kranglete | !discord !server !hjul",
+      "url": "https://www.twitch.tv/videos/2895231578",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/4d9f51dbbe5e9171cc16_andersmish_317068681556_1791475773//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/4d9f51dbbe5e9171cc16_andersmish_317068681556_1791475773//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 11080,
+      "created_at": "2026-10-08T16:09:41Z"
+    },
+    {
+      "id": "2895227022",
+      "title": "NXT | Y-13 Vægle er kranglete | !discord !server !hjul",
+      "url": "https://www.twitch.tv/videos/2895227022",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/09da578049806b35ed48_andersmish_317068629716_1791475408//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/09da578049806b35ed48_andersmish_317068629716_1791475408//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 340,
+      "created_at": "2026-10-08T16:03:37Z"
+    },
     {
       "id": "2894358466",
       "title": "NXT | Y-13 Frank O. Vagle | !discord !server !hjul",
@@ -25,7 +43,9 @@
       "id": "2893494494",
       "title": "NXT | Y-13 Væglee | !discord !server !hjul",
       "url": "https://www.twitch.tv/videos/2893494494",
-      "duration_seconds": 0,
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/8c531665d6fe622a1d07_andersmish_317056313684_1791302348//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/8c531665d6fe622a1d07_andersmish_317056313684_1791302348//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 9230,
       "created_at": "2026-10-06T15:59:13Z"
     },
     {
@@ -45,24 +65,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/6ff7eefaae5da95c7d6d_andersmish_316938539477_1790783869//thumb/thumb0-640x360.jpg",
       "duration_seconds": 8980,
       "created_at": "2026-09-30T15:57:54Z"
-    },
-    {
-      "id": "2886439059",
-      "title": "NXT | UP-90 Vægle | !discord !server",
-      "url": "https://www.twitch.tv/videos/2886439059",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a353140eb23bc36ebbc5_andersmish_316960388054_1790612163//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/a353140eb23bc36ebbc5_andersmish_316960388054_1790612163//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 12870,
-      "created_at": "2026-09-28T16:16:08Z"
-    },
-    {
-      "id": "2883685772",
-      "title": "NXT | UP-90 Vægle har hælj! | !discord !server",
-      "url": "https://www.twitch.tv/videos/2883685772",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/c5e0c904dd6ae12fa678_andersmish_316985156308_1790352579//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/c5e0c904dd6ae12fa678_andersmish_316985156308_1790352579//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 9380,
-      "created_at": "2026-09-25T16:09:44Z"
     }
   ]
 }
