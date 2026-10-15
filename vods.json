@@ -1,17 +1,26 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-12T22:45:35Z",
+  "updated_at": "2026-10-15T19:19:07Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2898908824",
-    "title": "NXT | Y-13 og de kriminelle avskummene | !discord !server",
-    "url": "https://www.twitch.tv/videos/2898908824",
-    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ef1ad14898d18097cf70_andersmish_317014693461_1791822488//thumb/thumb0-320x180.jpg",
-    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ef1ad14898d18097cf70_andersmish_317014693461_1791822488//thumb/thumb0-640x360.jpg",
-    "duration_seconds": 12870,
-    "created_at": "2026-10-12T16:28:16Z"
+    "id": "2901495423",
+    "title": "NXT | Y-13 Vagle på eventyr | !discord !server",
+    "url": "https://www.twitch.tv/videos/2901495423",
+    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-320x180.jpg",
+    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-640x360.jpg",
+    "duration_seconds": 9040,
+    "created_at": "2026-10-15T16:19:31Z"
   },
   "vods": [
+    {
+      "id": "2901495423",
+      "title": "NXT | Y-13 Vagle på eventyr | !discord !server",
+      "url": "https://www.twitch.tv/videos/2901495423",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 9040,
+      "created_at": "2026-10-15T16:19:31Z"
+    },
     {
       "id": "2898908824",
       "title": "NXT | Y-13 og de kriminelle avskummene | !discord !server",
@@ -56,15 +65,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/8c531665d6fe622a1d07_andersmish_317056313684_1791302348//thumb/thumb0-640x360.jpg",
       "duration_seconds": 9230,
       "created_at": "2026-10-06T15:59:13Z"
-    },
-    {
-      "id": "2892660881",
-      "title": "NXT | Y-13 Vaglefjes | !discord !server !hjul",
-      "url": "https://www.twitch.tv/videos/2892660881",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/f6cdeb42bc14cc044635_andersmish_317050197076_1791217243//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 11850,
-      "created_at": "2026-10-05T16:20:48Z"
     }
   ]
 }
