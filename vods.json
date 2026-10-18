@@ -1,17 +1,31 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-15T19:19:07Z",
+  "updated_at": "2026-10-18T16:23:37Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2901495423",
-    "title": "NXT | Y-13 Vagle på eventyr | !discord !server",
-    "url": "https://www.twitch.tv/videos/2901495423",
-    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-320x180.jpg",
-    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-640x360.jpg",
-    "duration_seconds": 9040,
-    "created_at": "2026-10-15T16:19:31Z"
+    "id": "2904297510",
+    "title": "NXT | Felix kjører bil og sånt | !discord !server !tiktok",
+    "url": "https://www.twitch.tv/videos/2904297510",
+    "duration_seconds": 0,
+    "created_at": "2026-10-18T16:16:42Z"
   },
   "vods": [
+    {
+      "id": "2904297510",
+      "title": "NXT | Felix kjører bil og sånt | !discord !server !tiktok",
+      "url": "https://www.twitch.tv/videos/2904297510",
+      "duration_seconds": 0,
+      "created_at": "2026-10-18T16:16:42Z"
+    },
+    {
+      "id": "2904293981",
+      "title": "NXT | Felix kjører bil og sånt | !discord !server !tiktok",
+      "url": "https://www.twitch.tv/videos/2904293981",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/0499930043d723328263_andersmish_317052424533_1792339927//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/0499930043d723328263_andersmish_317052424533_1792339927//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 230,
+      "created_at": "2026-10-18T16:12:15Z"
+    },
     {
       "id": "2901495423",
       "title": "NXT | Y-13 Vagle på eventyr | !discord !server",
@@ -47,24 +61,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/09da578049806b35ed48_andersmish_317068629716_1791475408//thumb/thumb0-640x360.jpg",
       "duration_seconds": 340,
       "created_at": "2026-10-08T16:03:37Z"
-    },
-    {
-      "id": "2894358466",
-      "title": "NXT | Y-13 Frank O. Vagle | !discord !server !hjul",
-      "url": "https://www.twitch.tv/videos/2894358466",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/7b1c136ecb80bfb92002_andersmish_317018314838_1791388926//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/7b1c136ecb80bfb92002_andersmish_317018314838_1791388926//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 11910,
-      "created_at": "2026-10-07T16:02:14Z"
-    },
-    {
-      "id": "2893494494",
-      "title": "NXT | Y-13 Væglee | !discord !server !hjul",
-      "url": "https://www.twitch.tv/videos/2893494494",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/8c531665d6fe622a1d07_andersmish_317056313684_1791302348//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/8c531665d6fe622a1d07_andersmish_317056313684_1791302348//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 9230,
-      "created_at": "2026-10-06T15:59:13Z"
     }
   ]
 }
