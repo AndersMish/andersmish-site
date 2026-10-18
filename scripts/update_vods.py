@@ -94,8 +94,8 @@ def fetch_list():
         if forsok < DECAPI_ATTEMPTS:
             vent = DECAPI_BACKOFF_SECONDS[min(forsok - 1, len(DECAPI_BACKOFF_SECONDS) - 1)]
             print(
-                f"  ! DecAPI midlertidig feil (forsøk {forsok}/{DECAPI_ATTEMPTS}): {_kort(siste)}. "
-                f"Prøver igjen om {vent}s.",
+                f"  ! DecAPI midlertidig feil (forsøk {forsok}/{DECAPI_ATTEMPTS}), "
+                f"prøver igjen om {vent}s: {_kort(siste)}",
                 file=sys.stderr,
             )
             time.sleep(vent)
@@ -152,8 +152,8 @@ def main():
     except TransientUpstreamError as e:
         # GitHub Actions viser ::warning:: uten å feile jobben. Filen skrives ikke.
         melding = (
-            f"Klarte ikke hente VOD-liste fra DecAPI etter {DECAPI_ATTEMPTS} forsøk "
-            f"(midlertidig feil: {e}). Beholder eksisterende {OUT}."
+            f"Klarte ikke hente VOD-liste fra DecAPI etter {DECAPI_ATTEMPTS} forsøk. "
+            f"Midlertidig feil: «{e}». Beholder eksisterende {OUT}."
         )
         print(f"::warning::{melding.replace('::', ' ')}")
         return
