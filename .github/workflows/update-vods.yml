@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -55,6 +55,8 @@ jobs:
             echo "Ingen endringer – ingen commit."
           fi
 
+      # Rate limit og nettverksfeil avslutter update_vods.py med kode 0.
+      # Dette steget kjører bare når skriptet feiler på ekte.
       - name: Feil hvis VOD-henting feilet
         if: steps.vods.outcome == 'failure'
         run: |

@@ -7,8 +7,10 @@ Kilder (ingen nøkler/hemmeligheter):
                                                   thumbnail, varighet og dato. Valgfritt; mangler den, brukes bare ID/tittel.
   3. https://decapi.me/twitch/uptime/<kanal>  -> om kanalen er live (for å unngå unødvendige commits under en sending)
 
-Skriver bare filen når innholdet faktisk har endret seg. Avslutter med feil (og rører ikke filen)
-hvis VOD-listen ikke kan hentes.
+Skriver bare filen når innholdet faktisk har endret seg. DecAPI-kallet prøves på nytt
+ved HTTP-feil, timeout og Twitch-rate-limit. Hvis den midlertidige feilen vedvarer,
+beholdes filen og skriptet avslutter uten feilkode (med en advarsel). Andre feil
+avslutter med feil og rører ikke filen.
 """
 import html
 import json
@@ -25,6 +27,14 @@ LIMIT = int(os.environ.get("VOD_LIMIT", "6"))
 OUT = os.environ.get("VODS_FILE", "vods.json")
 UA = "andersmish-site-vod-updater/1.0 (+https://andersmish.com)"
 VIDEO_URL_RE = re.compile(r"^https://www\.twitch\.tv/videos/(\d+)$")
+# Tre forsøk totalt: vent 10s etter første feil, 30s etter andre.
+DECAPI_ATTEMPTS = 3
+DECAPI_BACKOFF_SECONDS = (10, 30)
+TRANSIENT_MARKERS = ("too many requests", "error from twitch api", "try again later")
+
+
+class TransientUpstreamError(Exception):
+    """Midlertidig feil fra DecAPI/Twitch (rate limit, nettverk eller timeout)."""
 
 
 def get(url, timeout=20):
@@ -33,14 +43,7 @@ def get(url, timeout=20):
         return r.read().decode("utf-8", "replace")
 
 
-def fetch_list():
-    q = urllib.parse.urlencode({
-        "limit": LIMIT,
-        "broadcast_type": "archive",
-        "video_format": "${url}\t${title}",
-        "separator": "\n",
-    })
-    text = get(f"https://decapi.me/twitch/videos/{CHANNEL}?{q}").strip()
+def _parse_vod_linjer(text):
     vods = []
     for line in text.splitlines():
         url, _, title = line.partition("\t")
@@ -48,9 +51,57 @@ def fetch_list():
         if not m:
             continue
         vods.append({"id": m.group(1), "title": " ".join(title.split()), "url": url.strip()})
-    if not vods:
-        raise RuntimeError(f"Ingen gyldige VOD-er i svaret fra DecAPI: {text[:200]!r}")
     return vods
+
+
+def _er_midlertidig_svar(text):
+    low = text.lower()
+    return any(marker in low for marker in TRANSIENT_MARKERS)
+
+
+def _kort(verdi, lengde=240):
+    tekst = " ".join(str(verdi).split())
+    if len(tekst) <= lengde:
+        return tekst
+    return tekst[: lengde - 1] + "…"
+
+
+def fetch_list():
+    """Hent VOD-listen fra DecAPI. Prøver på nytt ved rate limit og nettverksfeil."""
+    q = urllib.parse.urlencode({
+        "limit": LIMIT,
+        "broadcast_type": "archive",
+        "video_format": "${url}\t${title}",
+        "separator": "\n",
+    })
+    url = f"https://decapi.me/twitch/videos/{CHANNEL}?{q}"
+    siste = "ukjent feil"
+    for forsok in range(1, DECAPI_ATTEMPTS + 1):
+        try:
+            text = get(url).strip()
+        except OSError as e:
+            # HTTP-feil (inkl. 429), timeout og nettverksfeil fra urllib.
+            siste = e
+            midlertidig = True
+        else:
+            vods = _parse_vod_linjer(text)
+            if vods:
+                return vods
+            siste = text
+            midlertidig = _er_midlertidig_svar(text)
+            if not midlertidig:
+                raise RuntimeError(f"Ingen gyldige VOD-er i svaret fra DecAPI: {text[:200]!r}")
+        if forsok < DECAPI_ATTEMPTS:
+            vent = DECAPI_BACKOFF_SECONDS[min(forsok - 1, len(DECAPI_BACKOFF_SECONDS) - 1)]
+            print(
+                f"  ! DecAPI midlertidig feil (forsøk {forsok}/{DECAPI_ATTEMPTS}), "
+                f"prøver igjen om {vent}s: {_kort(siste)}",
+                file=sys.stderr,
+            )
+            time.sleep(vent)
+            continue
+        raise TransientUpstreamError(_kort(siste))
+    raise TransientUpstreamError(_kort(siste))
 
 
 def og_meta(vod_id, attempts=3):
@@ -96,7 +147,16 @@ def is_live():
 
 
 def main():
-    vods = fetch_list()
+    try:
+        vods = fetch_list()
+    except TransientUpstreamError as e:
+        # GitHub Actions viser ::warning:: uten å feile jobben. Filen skrives ikke.
+        melding = (
+            f"Klarte ikke hente VOD-liste fra DecAPI etter {DECAPI_ATTEMPTS} forsøk. "
+            f"Midlertidig feil: «{e}». Beholder eksisterende {OUT}."
+        )
+        print(f"::warning::{melding.replace('::', ' ')}")
+        return
     old = {}
     if os.path.exists(OUT):
         try:
