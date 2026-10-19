@@ -1,15 +1,22 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-18T16:23:37Z",
+  "updated_at": "2026-10-19T16:50:05Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2904297510",
-    "title": "NXT | Felix kjører bil og sånt | !discord !server !tiktok",
-    "url": "https://www.twitch.tv/videos/2904297510",
+    "id": "2905127836",
+    "title": "NXT | Y-13 Vægle på arbe | !discord !server !tiktok",
+    "url": "https://www.twitch.tv/videos/2905127836",
     "duration_seconds": 0,
-    "created_at": "2026-10-18T16:16:42Z"
+    "created_at": "2026-10-19T15:57:58Z"
   },
   "vods": [
+    {
+      "id": "2905127836",
+      "title": "NXT | Y-13 Vægle på arbe | !discord !server !tiktok",
+      "url": "https://www.twitch.tv/videos/2905127836",
+      "duration_seconds": 0,
+      "created_at": "2026-10-19T15:57:58Z"
+    },
     {
       "id": "2904297510",
       "title": "NXT | Felix kjører bil og sånt | !discord !server !tiktok",
@@ -52,15 +59,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/4d9f51dbbe5e9171cc16_andersmish_317068681556_1791475773//thumb/thumb0-640x360.jpg",
       "duration_seconds": 11080,
       "created_at": "2026-10-08T16:09:41Z"
-    },
-    {
-      "id": "2895227022",
-      "title": "NXT | Y-13 Vægle er kranglete | !discord !server !hjul",
-      "url": "https://www.twitch.tv/videos/2895227022",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/09da578049806b35ed48_andersmish_317068629716_1791475408//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/09da578049806b35ed48_andersmish_317068629716_1791475408//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 340,
-      "created_at": "2026-10-08T16:03:37Z"
     }
   ]
 }
