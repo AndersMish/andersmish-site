@@ -1,15 +1,26 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-21T17:33:12Z",
+  "updated_at": "2026-10-22T19:47:34Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
-    "id": "2906848717",
-    "title": "NXT | Y-13 Vægle | !discord !server !tiktok",
-    "url": "https://www.twitch.tv/videos/2906848717",
-    "duration_seconds": 0,
-    "created_at": "2026-10-21T16:02:39Z"
+    "id": "2907709586",
+    "title": "NXT | Felix Johansson | !discord !server !tiktok",
+    "url": "https://www.twitch.tv/videos/2907709586",
+    "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/5a252bd2ada819df1905_andersmish_317111292502_1792684894//thumb/thumb0-320x180.jpg",
+    "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/5a252bd2ada819df1905_andersmish_317111292502_1792684894//thumb/thumb0-640x360.jpg",
+    "duration_seconds": 8530,
+    "created_at": "2026-10-22T16:01:43Z"
   },
   "vods": [
+    {
+      "id": "2907709586",
+      "title": "NXT | Felix Johansson | !discord !server !tiktok",
+      "url": "https://www.twitch.tv/videos/2907709586",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/5a252bd2ada819df1905_andersmish_317111292502_1792684894//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/5a252bd2ada819df1905_andersmish_317111292502_1792684894//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 8530,
+      "created_at": "2026-10-22T16:01:43Z"
+    },
     {
       "id": "2906848717",
       "title": "NXT | Y-13 Vægle | !discord !server !tiktok",
@@ -52,15 +63,6 @@
       "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/0499930043d723328263_andersmish_317052424533_1792339927//thumb/thumb0-640x360.jpg",
       "duration_seconds": 230,
       "created_at": "2026-10-18T16:12:15Z"
-    },
-    {
-      "id": "2901495423",
-      "title": "NXT | Y-13 Vagle på eventyr | !discord !server",
-      "url": "https://www.twitch.tv/videos/2901495423",
-      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-320x180.jpg",
-      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/ba9d0c4004adf4cdeec9_andersmish_317114414036_1792081162//thumb/thumb0-640x360.jpg",
-      "duration_seconds": 9040,
-      "created_at": "2026-10-15T16:19:31Z"
     }
   ]
 }
