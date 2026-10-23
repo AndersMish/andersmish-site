@@ -1,6 +1,6 @@
 {
   "channel": "andersmish",
-  "updated_at": "2026-10-22T19:47:34Z",
+  "updated_at": "2026-10-23T20:13:56Z",
   "source": "decapi.me/twitch/videos + Twitch Open Graph-metadata",
   "latest": {
     "id": "2907709586",
@@ -25,7 +25,9 @@
       "id": "2906848717",
       "title": "NXT | Y-13 Vægle | !discord !server !tiktok",
       "url": "https://www.twitch.tv/videos/2906848717",
-      "duration_seconds": 0,
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/6c3234a86f66bc652181_andersmish_317105210710_1792598550//thumb/thumb0-320x180.jpg",
+      "thumbnail_large": "https://static-cdn.jtvnw.net/cf_vods/dgeft87wbj63p/6c3234a86f66bc652181_andersmish_317105210710_1792598550//thumb/thumb0-640x360.jpg",
+      "duration_seconds": 10430,
       "created_at": "2026-10-21T16:02:39Z"
     },
     {
