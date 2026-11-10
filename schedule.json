@@ -1,12 +1,14 @@
 {
-  "_hjelp": "Fast ukeplan i 'weekly' (klokkeslett «HH:MM» i norsk tid, eller null = fri). Unntak for enkeltdatoer i 'overrides' med nøkkel «ÅÅÅÅ-MM-DD»: {\"cancelled\": true, \"note\": \"...\"} for å avlyse, {\"time\": \"20:00\", \"note\": \"...\"} for annet klokkeslett / ekstra stream. Gamle datoer kan bare slettes.",
+  "_hjelp": "Sett 'paused' til true og ev. 'note' for å skjule ukeplanen og vise en pausemelding (f.eks. under en lengre pause). Fast ukeplan i 'weekly' (klokkeslett «HH:MM» i norsk tid, eller null = fri). Unntak for enkeltdatoer i 'overrides' med nøkkel «ÅÅÅÅ-MM-DD»: {\"cancelled\": true, \"note\": \"...\"} for å avlyse, {\"time\": \"20:00\", \"note\": \"...\"} for annet klokkeslett / ekstra stream. Gamle datoer kan bare slettes.",
   "timezone": "Europe/Oslo",
+  "paused": true,
+  "note": "Pause fra streaming for øyeblikket. Følg med på Discord for når jeg er tilbake.",
   "weekly": {
-    "mon": "18:00",
-    "tue": "18:00",
-    "wed": "18:00",
-    "thu": "18:00",
-    "fri": "18:00",
+    "mon": null,
+    "tue": null,
+    "wed": null,
+    "thu": null,
+    "fri": null,
     "sat": null,
     "sun": null
   },

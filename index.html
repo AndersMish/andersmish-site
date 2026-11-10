@@ -458,7 +458,7 @@
 
       <section class="card plan" id="stream-plan" aria-labelledby="plan-heading">
         <div class="card-h"><h2 id="plan-heading">Stream-plan</h2></div>
-        <p class="plan-fallback" id="plan-fallback">Mandag–fredag fra kl. 18:00. Lørdag og søndag fri.</p>
+        <p class="plan-fallback" id="plan-fallback">Pause fra streaming for øyeblikket. Følg med på Discord for når jeg er tilbake.</p>
         <div class="week" id="plan-week" hidden></div>
         <ul class="plan-notes" id="plan-notes"></ul>
         <p class="plan-foot">Norsk tid. Endringer legges ut på <a href="https://discord.gg/XPXR6wDBpP" target="_blank" rel="noopener">Discord</a>.</p>
@@ -498,8 +498,10 @@
     var MONTHS = ['jan.', 'feb.', 'mars', 'apr.', 'mai', 'juni', 'juli', 'aug.', 'sep.', 'okt.', 'nov.', 'des.'];
     var GRACE_MIN = 60;     // vis «i dag 18:00» til en time etter start hvis han ikke er live ennå
     var schedule = {        // reserve hvis schedule.json ikke kan lastes
-      weekly: { mon: '18:00', tue: '18:00', wed: '18:00', thu: '18:00', fri: '18:00', sat: null, sun: null },
-      overrides: {}
+      weekly: { mon: null, tue: null, wed: null, thu: null, fri: null, sat: null, sun: null },
+      overrides: {},
+      paused: true,
+      note: 'Pause fra streaming for øyeblikket. Følg med på Discord for når jeg er tilbake.'
     };
     var TIME_RE = /^([01]?\d|2[0-3]):([0-5]\d)$/;
 
@@ -571,7 +573,16 @@
 
     function renderPlan() {
       var now = osloNow(), next = nextStream(now);
-      var week = $('plan-week'), notes = $('plan-notes');
+      var week = $('plan-week'), notes = $('plan-notes'), fallback = $('plan-fallback');
+      if (schedule.paused) {
+        week.hidden = true;
+        week.replaceChildren();
+        notes.replaceChildren();
+        fallback.hidden = false;
+        fallback.textContent = schedule.note || 'Pause fra streaming for øyeblikket. Følg med på Discord for når jeg er tilbake.';
+        renderStatus();
+        return;
+      }
       var frag = document.createDocumentFragment(), noteFrag = document.createDocumentFragment();
       for (var i = 0; i < 7; i++) {
         var day = dayInfo(now, i), slot = slotFor(day);
@@ -613,7 +624,12 @@
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
         if (data && typeof data.weekly === 'object') {
-          schedule = { weekly: data.weekly, overrides: (data.overrides && typeof data.overrides === 'object') ? data.overrides : {} };
+          schedule = {
+            weekly: data.weekly,
+            overrides: (data.overrides && typeof data.overrides === 'object') ? data.overrides : {},
+            paused: !!data.paused,
+            note: typeof data.note === 'string' ? data.note : ''
+          };
           renderPlan();
         }
       })
